@@ -6,10 +6,10 @@ In the U.S., different states administer different tests for high school student
 
 ### Data Sets and Methods:
 
-- [SAT 2017](https://blog.collegevine.com/here-are-the-average-sat-scores-by-state/)
-- [SAT 2018](https://reports.collegeboard.org/sat-suite-program-results/state-results)
-- [ACT 2017](https://blog.prepscholar.com/act-scores-by-state-averages-highs-and-lows)
-- [ACT 2018](http://www.act.org/content/dam/act/unsecured/documents/cccr2018/Average-Scores-by-State.pdfZ)
+* [SAT 2017](https://blog.collegevine.com/here-are-the-average-sat-scores-by-state/)
+* [SAT 2018](https://reports.collegeboard.org/sat-suite-program-results/state-results)
+* [ACT 2017](https://blog.prepscholar.com/act-scores-by-state-averages-highs-and-lows)
+* - [ACT 2018](http://www.act.org/content/dam/act/unsecured/documents/cccr2018/Average-Scores-by-State.pdfZ)
 
 - Outside Research
 * [States that Require the ACT](https://blog.collegevine.com/states-that-require-the-act/)
