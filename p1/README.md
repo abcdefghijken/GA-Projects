@@ -6,16 +6,16 @@ In the U.S., different states administer different tests for high school student
 
 ### Data Sets and Methods:
 
-- [SAT 2017](https://blog.collegevine.com/here-are-the-average-sat-scores-by-state/)
-- [SAT 2018](https://reports.collegeboard.org/sat-suite-program-results/state-results)
-- [ACT 2017](https://blog.prepscholar.com/act-scores-by-state-averages-highs-and-lows)
-- [ACT 2018](http://www.act.org/content/dam/act/unsecured/documents/cccr2018/Average-Scores-by-State.pdfZ)
+[SAT 2017](https://blog.collegevine.com/here-are-the-average-sat-scores-by-state/)<br>
+[SAT 2018](https://reports.collegeboard.org/sat-suite-program-results/state-results)<br>
+[ACT 2017](https://blog.prepscholar.com/act-scores-by-state-averages-highs-and-lows)<br>
+[ACT 2018](http://www.act.org/content/dam/act/unsecured/documents/cccr2018/Average-Scores-by-State.pdfZ)<br>
 
-- Outside Research
-* [States that Require the ACT](https://blog.collegevine.com/states-that-require-the-act/)
-* [States that Mandate ACT/SAT](https://testive.com/state-sat-act/)
-* [Good ACT Score](https://www.crimsoneducation.org/sg/blog/test-prep/good-ACT-score/#:~:text=What%20is%20considered%20a%20'good,Reading%2021.2%3B%20and%20Science%2020.6.)
-* [NCES](https://nces.ed.gov/programs/digest/)
+- Outside Research<br>
+[States that Require the ACT](https://blog.collegevine.com/states-that-require-the-act/)<br>
+[States that Mandate ACT/SAT](https://testive.com/state-sat-act/)<br>
+[Good ACT Score](https://www.crimsoneducation.org/sg/blog/test-prep/good-ACT-score/#:~:text=What%20is%20considered%20a%20'good,Reading%2021.2%3B%20and%20Science%2020.6.)<br>
+[NCES](https://nces.ed.gov/programs/digest/)<br>
 - Data Import and Cleaning
 - Exploratory Data Analysis
 - Data Visualization
