@@ -1,180 +1,395 @@
 # Project 2 - Ames Housing Data and Kaggle Challenge
 
-Welcome to Project 2! It's time to start modeling.
+<h3>Problem Statement:</h3>
+    <li>Predict the price of homes at sale for the Ames Iowa Housing dataset.</li>
+    <li>Based on model, find out the top features affecting prices.</li>
+    
+<h3>Content:</h3>
+<ul>
+    <li>Overview</li>  
+    <li>Data Dictionary</li>   
+    <li>Checking of Null Values</li>   
+    <li>Exploratory Data Analysis</li>   
+    <li>Data Cleaning</li>   
+    <li>Feature Engineering</li>   
+    <li>Modelling</li>   
+    <li>Conclusion</li>   
+    <li>Kaggle Submission</li>   
+</ul>
 
-**Primary Learning Objectives:**
-1. Creating and iteratively refining a regression model
-2. Using [Kaggle](https://www.kaggle.com/) to practice the modeling process
-3. Providing business insights through reporting and presentation.
+<center><h1>Data Dictionary</h1></center><BR>
+    <p>A list of columns used from the .csv. Data types and descriptions about columns are displayed.</p>
+    <li>http://jse.amstat.org/v19n3/decock/DataDocumentation.txt</li>
 
-You are tasked with creating a regression model based on the Ames Housing Dataset. This model will predict the price of a house at sale.
+|Feature|Type|Description|
+|---|---|---|
+ |PID          |int64  |Parcel identification number  - can be used with city web site for parcel review.|
+ |Ms Subclass  |int64  |Identifies the type of dwelling involved in the sale.|
+ |Ms Zoning    |object |Identifies the general zoning classification of the sale.|
+ |Lot Frontage |float64|Linear feet of street connected to property.|
+ |Lot Area     |int64  |Lot size in square feet.|
+ |Street       |object |Type of road access to property.|
+ |Alley        |object |Type of alley access to property.|
+ |Lot Shape    |object |General shape of property.|
+ |Land Contour |object |Flatness of the property.|
+ |Utilities    |object |Type of utilities available.|
+ |Lot Config   |object |Lot configuration.|
+ |Land Slope   |object |Slope of property.|
+ |Neighborhood |object |Physical locations within Ames city limits (map available).|
+ |Condition 1  |object |Proximity to various conditions.|
+ |Condition 2  |object |Proximity to various conditions (if more than one is present).|
+ |Bldg Type    |object |Type of dwelling.|
+ |House Style  |object |Style of dwelling.|
+ |Overall Qual |int64  |Rates the overall material and finish of the house.|
+ |Overall Cond |int64  |Rates the overall condition of the house.|
+ |Year Built   |int64  |Original construction date.|
+ |Year Remod/Add|int64  |Remodel date (same as construction date if no remodeling or additions).|
+ |Roof Style   |object |Type of roof.|
+ |Roof Matl    |object |Roof material.|
+ |Exterior 1st |object |Exterior covering on house.|
+ |Exterior 2nd |object |Exterior covering on house (if more than one material).|
+ |Mas Vnr Type |object |Masonry veneer type.|
+ |Mas Vnr Area |float64|Masonry veneer area in square feet.|
+ |Exter Qual   |object |Evaluates the quality of the material on the exterior.|
+ |Exter Cond   |object |Evaluates the present condition of the material on the exterior.|
+ |Foundation   |object |Type of foundation.|
+ |Bsmt Qual    |object |Evaluates the height of the basement.|
+ |Bsmt Cond   |object |Evaluates the general condition of the basement.|
+ |Bsmt Exposure|object |Refers to walkout or garden level walls.|
+ |BsmtFin Type 1|object |Rating of basement finished area.|
+ |BsmtFin SF 1 |float64|Type 1 finished square feet.|
+ |BsmtFin Type 2|object |Rating of basement finished area (if multiple types).|
+ |BsmtFin SF 2 |float64|Type 2 finished square feet.|
+ |Bsmt Unf SF  |float64|Unfinished square feet of basement area.|
+ |Total Bsmt SF|float64|Total square feet of basement area.|
+ |Heating      |object |Type of heating.|
+ |Heating QC   |object |Heating quality and condition.|
+ |Central Air  |object |Central air conditioning.|
+ |Electrical   |object |Electrical system.|
+ |1st Flr SF   |int64  |First Floor square feet.|
+ |2nd Flr SF   |int64  |Second Floor square feet.|
+ |Low Qual Fin SF|int64  |Low quality finished square feet (all floors).|
+ |Gr Liv Area  |int64  |Above grade (ground) living area square feet.|
+ |Bsmt Full Bath|float64|Basement full bathrooms.|
+ |Bsmt Half Bath|float64|Basement half bathrooms.|
+ |Full Bath    |int64  |Full bathrooms above grade.|
+ |Half Bath    |int64  |Half bathrooms above grade.|
+ |Bedroom AbvGr|int64  |Bedrooms above grade (does NOT include basement bedrooms).|
+ |Kitchen AbvGr|int64  |Kitchens above grade.|
+ |Kitchen Qual |object |Kitchen quality.|
+ |TotRms AbvGrd|int64  |Total rooms above grade (does not include bathrooms).|
+ |Functional   |object |Home functionality (Assume typical unless deductions are warranted).|
+ |Fireplaces   |int64  |Number of fireplaces.|
+ |Fireplace Qu |object |Fireplace quality.|
+ |Garage Type  |object |Garage location.|
+ |Garage Yr Blt|float64|Year garage was built.|
+ |Garage Finish|object |Interior finish of the garage.|
+ |Garage Cars  |float64|Size of garage in car capacity.|
+ |Garage Area  |float64|Size of garage in square feet.|
+ |Garage Qual  |object |Garage quality.|
+ |Garage Cond  |object |Garage condition.
+ |Paved Drive  |object |Paved driveway.|
+ |Wood Deck SF |int64  |Wood deck area in square feet.|
+ |Open Porch SF|int64  |Open porch area in square feet.|
+ |Enclosed Porch|int64  |Enclosed porch area in square feet.|
+ |3Ssn Porch   |int64  |Three season porch area in square feet.|
+ |Screen Porch |int64  |Screen porch area in square feet.|
+ |Pool Area    |int64  |Pool area in square feet.|
+ |Pool QC      |object |Pool quality.|
+ |Fence        |object |Fence quality.|
+ |Misc Feature |object |Miscellaneous feature not covered in other categories.|
+ |Misc Val     |int64  |$ Value of miscellaneous feature.|
+ |Mo Sold      |int64  |Month Sold (MM).|
+ |Yr Sold      |int64  |Year Sold (YYYY).|
+ |Sale Type    |object |Type of sale.|
+ |SalePrice    |int64  |Sale price $$.|
 
-The Ames Housing Dataset is an exceptionally detailed and robust dataset with over 70 columns of different features relating to houses.
+## Checking of Null Values
 
-Secondly, we are hosting a competition on Kaggle to give you the opportunity to practice the following skills:
+### Notable Columns: Alley, Pool QC, Fence, Misc Feature and Fireplace QC, PID, Id
+Since the data set has 2000+ rows in total, it might be safe to drop columns with too many null values. However, we would need to gather the meaning of these missing values to safely assume we would not require them. Further analysis would be made to ensure that missing values are not neglected, it will be done at a later stage.
 
-- Refining models over time
-- Use of train-test split, cross-validation, and data with unknown values for the target to simulate the modeling process
-- The use of Kaggle as a place to practice data science
+<center><h3>Things to take note of</h3></center><br>
+Columns like <code>Alley</code>, <code>Fireplace Qu</code> have LOTS of missing values in both data frames. For smaller quantities in <code>Total Bsmt SF</code>, <code>Garage Cars</code>, we could safely replace these rows with values from other rows.
+    
+<center><h2>Identifying Ordinal Columns, Null Values Analysis</h2></center><br>
+<h3>Objectives:</h3>
+<ul>
+    <li>Identify columns with possible ordinal transformation</li>
+    <li>Identify and analyze null values to assign values or drop</li>
+    <li>Map Ordinal Dictionary to categories for dummification</li>
+</ul><br>
 
-As always, you will be submitting a technical report and a presentation. **You may find that the best model for Kaggle is not the best model to address your data science problem.**
+<center><h3>Ordinal Dictionary</h3></center>
 
-## Set-up
+<h2>List of Converted Ordinal Columns:</h2>
+<ul>
+    <li>Bsmt Qual</li>
+    <li>Bsmt Cond</li>
+    <li>Fireplace Qu</li>
+    <li>Garage Qual</li>
+    <li>Garage Cond</li>
+</ul>
 
-Before you begin working on this project, please do the following:
+|Value|Description|Ordinal Number|
+|---|--|---|
+|Ex|Excellent|5|
+|Gd|Good|4|
+|TA|Average|3|
+|Fa|Fair|2|
+|Po|Poor|1|
+|NA|No <-->|0|
 
-1. Sign up for an account on [Kaggle](https://www.kaggle.com/)
-2. Review the material and download data files on the [DSI-US-11 Regression Challenge](https://www.kaggle.com/c/dsi-us-11-project-2-regression-challenge)
-3. Review the [data description](http://jse.amstat.org/v19n3/decock/DataDocumentation.txt).
+<ul>
+    <li>Exter Qual</li>
+    <li>Exter Cond</li>
+    <li>HeatingQC</li>
+    <li>Kichen Qual</li>
+</ul>
 
-## The Modeling Process
+|Value|Description|Ordinal Number|
+|---|--|---|
+|Ex|Excellent|4|
+|Gd|Good|3|
+|TA|Average|2|
+|Fa|Fair|1|
+|Po|Poor|0|
 
-1. The train dataset has all of the columns that you will need to generate and refine your models. The test dataset has all of those columns except for the target that you are trying to predict in your Regression model.
-2. Generate your regression model using the training data. We expect that within this process, you'll be making use of:
-    - train-test split
-    - cross-validation / grid searching for hyperparameters
-    - strong exploratory data analysis to question correlation and relationship across predictive variables
-    - code that reproducibly and consistently applies feature transformation (such as the preprocessing library)
-3. Predict the values for your target column in the test dataset and consider submitting your predictions to Kaggle to see how your model does against unknown data.
-    - **Note**: Kaggle expects to see your submissions in a specific format. Check the challenge's page to make sure you are formatting your CSVs correctly!
-    - **You are limited to models you've learned in class so far**. In other words, you cannot use XGBoost, Neural Networks or any other advanced model for this project.
-4. Evaluate your models!
-    - consider your evaluation metrics
-    - consider your baseline score
-    - how can your model be used for inference?
-    - why do you believe your model will generalize to new data?
+<ul>
+    <li>Bsmt Exposure</li>
+</ul>
 
-## Submission
+|Value|Description|Ordinal Number|
+|---|--|---|
+|Gd|Good Exposure|4|
+|Av|Average Exposure|3|
+|Mn|Minimum Exposure|2|
+|No|No Exposure|1|
+|NA|No Basement|0|
 
-Materials must be submitted by the beginning of class on **16 Jul 2021 09:00AM** through your GitHub account repo shared with the Teaching Team.
+<ul>
+    <li>Pool QC</li>
+</ul>
 
-Your technical report will be hosted on Github Enterprise. Make sure it includes:
+|Value|Description|Ordinal Number|
+|---|--|---|
+|Ex|Excellent|4|
+|Gd|Good|3|
+|TA|Average/Typical|2|
+|Fa|Fair|1|
+|NA|No No Pool|0|
 
-- A README.md (that isn't this file)
-- Jupyter notebook(s) with your analysis and models (renamed to describe your project)
-- At least one successful prediction submission on [DSI-US-11 Regression Challenge](https://www.kaggle.com/c/dsi-us-11-project-2-regression-challenge) --  you should see your name in the "[Leaderboard](https://www.kaggle.com/c/dsi-us-11-project-2-regression-challenge/leaderboard)" tab.
-- Data files
-- Presentation slides
-- Any other necessary files (images, etc.)
+<ul>
+    <li>Lot Shape</li>
+</ul>
 
----
+|Value|Description|Ordinal Number|
+|---|--|---|
+|Reg|Regular|3|	
+|IR1|Slightly irregular|2|
+|IR2|Moderately Irregular|1|
+|IR3|Irregular|0|
 
-## Presentation Structure
+<ul>
+    <li>Utilities</li>
+</ul>
 
-- **Presentation Time: 10 minutes**
-- Use Google Slides or some other visual aid (Keynote, Powerpoint, etc).
-- Consider the audience. Assume you are presenting to a non-technical audience (real estate agents, property owners, etc.).
-- Start with the **data science problem**.
-- Use visuals that are appropriately scaled and interpretable.
-- Talk about your procedure/methodology (high level, **CODE IS ALWAYS INAPPROPRIATE FOR A NON-TECHNICAL AUDIENCE**).
-- Talk about your primary findings.
-- Make sure you provide **clear recommendations** that follow logically from your analyses and narrative and answer your data science problem.
+|Value|Description|Ordinal Number|
+|---|--|---|
+|AllPub|All public Utilities (E,G,W,& S)|3|	
+|NoSewr|Electricity, Gas, and Water (Septic Tank)|2|
+|NoSeWa|Electricity and Gas Only|1|
+|ELO|Irregular|0|
 
-Be sure to rehearse and time your presentation before class.
+<ul>
+    <li>Land Slope</li>
+</ul>
 
----
+|Value|Description|Ordinal Number|
+|---|--|---|	
+|Gtl|Gentle slope|2|
+|Mod|Moderate Slope|1|
+|Sev|Severe Slope|0|
 
-## Rubric
-Teaching team will evaluate your project using the following criteria.  You should make sure that you consider and/or follow most if not all of the considerations/recommendations outlined below **while** working through your project.
+<ul>
+    <li>BsmtFin Type 1</li>
+    <li>BsmtFin Type 2</li>
+</ul>
 
-**Note:** Presentation will be done as a group while codes will be prepared and submitted by each student.
+|Value|Description|Ordinal Number|
+|---|--|---|	
+|GLQ|Good Living Quarters|6|
+|ALQ|Average Living Quarters|5|
+|BLQ|Below Average Living Quarters|4|
+|Rec|Average Rec Room|3|
+|LwQ|Low Quality|2|
+|Unf|Unfinished|1|
+|NA|No Basement|0|
 
-**Scores will be out of 27 points based on the 9 items in the rubric.** <br>
-*3 points per section*<br>
+<ul>
+    <li>Electrical</li>
+</ul>
 
-| Score | Interpretation |
-| --- | --- |
-| **0** | *Project fails to meet the minimum requirements for this item.* |
-| **1** | *Project meets the minimum requirements for this item, but falls significantly short of portfolio-ready expectations.* |
-| **2** | *Project exceeds the minimum requirements for this item, but falls short of portfolio-ready expectations.* |
-| **3** | *Project meets or exceeds portfolio-ready expectations; demonstrates a thorough understanding of every outlined consideration.* |
+|Value|Description|Ordinal Number|
+|---|--|---|	
+|SBrkr|Standard Circuit Breakers & Romex|4|
+|FuseA|Fuse Box over 60 AMP and all Romex wiring (Average)|3|
+|FuseF|60 AMP Fuse Box and mostly Romex wiring (Fair)|2|
+|FuseP|60 AMP Fuse Box and mostly knob & tube wiring (poor)|1|
+|Mix|Mixed|0|
 
-### The Data Science Process
+<ul>
+    <li>Functional</li>
+</ul>
 
-**Problem Statement**
-- Is it clear what the student plans to do?
-- What type of model will be developed?
-- How will success be evaluated?
-- Is the scope of the project appropriate?
-- Is it clear who cares about this or why this is important to investigate?
-- Does the student consider the audience and the primary and secondary stakeholders?
+|Value|Description|Ordinal Number|
+|---|--|---|	
+|Typ|Typical Functionality|7|
+|Min1|Minor Deductions 1|6|
+|Min2|Minor Deductions 2|5|
+|Mod|Moderate Deductions|4|
+|Maj1|Major Deductions 1|3|
+|Maj2|Major Deductions 2|2|
+|Sev|Severely Damaged|1|
+|Sal|Salvage only|0|
 
-**Data Cleaning and EDA**
-- Are missing values imputed appropriately?
-- Are distributions examined and described?
-- Are outliers identified and addressed?
-- Are appropriate summary statistics provided?
-- Are steps taken during data cleaning and EDA framed appropriately?
-- Does the student address whether or not they are likely to be able to answer their problem statement with the provided data given what they've discovered during EDA?
+<ul>
+    <li>Garage Finish</li>
+</ul>
 
-**Preprocessing and Modeling**
-- Are categorical variables one-hot encoded?
-- Does the student investigate or manufacture features with linear relationships to the target?
-- Have the data been scaled appropriately?
-- Does the student properly split and/or sample the data for validation/training purposes?
-- Does the student utilize feature selection to remove noisy or multi-collinear features?
-- Does the student test and evaluate a variety of models to identify a production algorithm (**AT MINIMUM:** linear regression, lasso, and ridge)?
-- Does the student defend their choice of production model relevant to the data at hand and the problem?
-- Does the student explain how the model works and evaluate its performance successes/downfalls?
+|Value|Description|Ordinal Number|
+|---|--|---|	
+|Fin|Finished|3|
+|Rfn|Rough Finished|2|
+|Unf|Unfinished|1|
+|NA|No Garage|0|
 
-**Evaluation and Conceptual Understanding**
-- Does the student accurately identify and explain the baseline score?
-- Does the student select and use metrics relevant to the problem objective?
-- Is more than one metric utilized in order to better assess performance?
-- Does the student interpret the results of their model for purposes of inference?
-- Is domain knowledge demonstrated when interpreting results?
-- Does the student provide appropriate interpretation with regards to descriptive and inferential statistics?
+<ul>
+    <li>Paved Drive</li>
+</ul>
 
-**Conclusion and Recommendations**
-- Does the student provide appropriate context to connect individual steps back to the overall project?
-- Is it clear how the final recommendations were reached?
-- Are the conclusions/recommendations clearly stated?
-- Does the conclusion answer the original problem statement?
-- Does the student address how findings of this research can be applied for the benefit of stakeholders?
-- Are future steps to move the project forward identified?
+|Value|Description|Ordinal Number|
+|---|--|---|	
+|Y|Paved|2|
+|P|Partial Pavement|1|
+|N|Dirt/Gravel|0|
 
-### Organization and Professionalism
+<ul>
+    <li>Fence</li>
+</ul>
 
-**Project Organization**
-- Are modules imported correctly (using appropriate aliases)?
-- Are data imported/saved using relative paths?
-- Does the README provide a good executive summary of the project?
-- Is markdown formatting used appropriately to structure notebooks?
-- Are there an appropriate amount of comments to support the code?
-- Are files & directories organized correctly?
-- Are there unnecessary files included?
-- Do files and directories have well-structured, appropriate, consistent names?
+|Value|Description|Ordinal Number|
+|---|--|---|
+|GdPrv|Good Privacy|4|
+|MnPrv|Minimum Privacy|3|
+|GdWo|Good Wood|2|
+|MnWw|Minimum Wood/Wire|1|
+|NA|No Fence|0|
 
-**Visualizations**
-- Are sufficient visualizations provided?
-- Do plots accurately demonstrate valid relationships?
-- Are plots labeled properly?
-- Are plots interpreted appropriately?
-- Are plots formatted and scaled appropriately for inclusion in a notebook-based technical report?
+## EDA
 
-**Python Syntax and Control Flow**
-- Is care taken to write human readable code?
-- Is the code syntactically correct (no runtime errors)?
-- Does the code generate desired results (logically correct)?
-- Does the code follows general best practices and style guidelines?
-- Are Pandas functions used appropriately?
-- Are `sklearn` methods used appropriately?
+<h1><center>EDA - Numerical Columns</center></h1>
 
-**Presentation**
-- Is the problem statement clearly presented?
-- Does a strong narrative run through the presentation building toward a final conclusion?
-- Are the conclusions/recommendations clearly stated?
-- Is the level of technicality appropriate for the intended audience?
-- Is the student substantially over or under time?
-- Does the student appropriately pace their presentation?
-- Does the student deliver their message with clarity and volume?
-- Are appropriate visualizations generated for the intended audience?
-- Are visualizations necessary and useful for supporting conclusions/explaining findings?
+For these numerical columns, some of the informatics in the scatterplots have shown us very interesting relationship between each column and <code>SalePrice</code>. Let's take a look at a few noticable examples:
 
-In order to pass the project, students must earn a minimum score of 1 for each category.
-- Earning below a 1 in one or more of the above categories would result in a failing project.
-- While a minimum of 1 in each category is the required threshold for graduation, students should aim to earn at least an average of 1.5 across each category. An average score below 1.5, while it may be passing, means students may want to solicit specific feedback in order to significantly improve the project before showcasing it as part of a portfolio or the job search.
+<h3>Rating-Related Relationships</h3>
+<ul>
+    <li><code>Overall Cond</code> - (House) overall condition of the house.</li>
+    It is clearly shown in the graph that it has a negative correlation to prices?<br><br>
+    
+<li><code>Overall Qual</code> - (House) rates the overall material and finish of the house.</li>
+    It is clearly shown in the graph that higher quality means higher price, but doesn't it affect <code>Overall Cond</code>?
+<br>
+</ul>
 
-### REMEMBER:
+<h3>Area-Related Relationships</h3>
+<ul>
+    <li><code>Garage Area</code> - (Garage Size) size calculation in square feet.</li>
+    Unlike in Singapore, apparently most houses have garage area attached to their homes. The size of this affects the prices by a significant amount.
+<br><br>
+    <li><code>Gr Liv Area</code> - (Living Space) size calculation in square feet</li>
+    Living area refers to the size of the home in square feet. It makes sense because as your house is bigger, it is going to cost more.
+    
+In my honest opnion, it seems to me that everything related to area size should be related to <code>SalePrice</code>, like <code>1st Flr SF</code>. However, this is not the case. A lot of houses have 0.0 (bef. data cleaning: Null) indicating they do not have like <code>2nd Flr SF</code>, but have high <code>SalePrice</code>. No obvious patterns to indicate other Area-related columns have strong correlation.
+</ul>
 
-This is a learning environment and you are encouraged to try new things, even if they don't work out as well as you planned! While this rubric outlines what we look for in a _good_ project, it is up to you to go above and beyond to create a _great_ project. **Learn from your failures and you'll be prepared to succeed in the workforce**.
+<h3>Facility-Related Relationships</h3>
+<ul>
+<li><code>Fireplaces</code> - (Fireplace) quantity (2)</li><br>
+<li><code>Full Bath</code> - (Bathroom) quantity (2)</li><br>
+<li><code>Half Bath</code> - (Bathroom) quantity (1)</li><br>
+<li><code>Kitchen AbvGr</code> - (Kitchen) quantity (1)</li><br>
+<li><code>Garage Cars</code> - (Garage) quantity (3)</li><br>
+Interestingly, these facilities correlate with prices on specific quantity. Example: Having too many <code>Fireplaces</code> or kitchen might be too bad? This column could be related to <code>Garage Area</code> as well since it relates to how many cars you can keep.
+</ul>
+
+    
+<h3>Time-Related Relationships</h3>
+<ul>
+<li><code>Year Built</code> - (House) original construction date</li>
+    Newer houses tend to cost more, as seen from the graph, from 2000.
+<br><br>
+<li><code>Garage Yr Blt</code> - (Garage) year garage was built</li>
+    <code>SalePrice</code> shoots up from 2000.
+</ul>
+
+However, <code>Mo Sold</code> and <code>Yr Sold</code> don't seem to have any obvious trend.
+
+<h1><center>EDA - Numerical Columns</center></h1>
+
+For these numerical columns, some of the informatics in the scatterplots have shown us very interesting relationship between each column and <code>SalePrice</code>. Let's take a look at a few noticable examples:
+
+<h3>Rating-Related Relationships</h3>
+<ul>
+    <li><code>Overall Cond</code> - (House) overall condition of the house.</li>
+    It is clearly shown in the graph that it has a negative correlation to prices?<br><br>
+    
+<li><code>Overall Qual</code> - (House) rates the overall material and finish of the house.</li>
+    It is clearly shown in the graph that higher quality means higher price, but doesn't it affect <code>Overall Cond</code>?
+<br>
+</ul>
+
+<h3>Area-Related Relationships</h3>
+<ul>
+    <li><code>Garage Area</code> - (Garage Size) size calculation in square feet.</li>
+    Unlike in Singapore, apparently most houses have garage area attached to their homes. The size of this affects the prices by a significant amount.
+<br><br>
+    <li><code>Gr Liv Area</code> - (Living Space) size calculation in square feet</li>
+    Living area refers to the size of the home in square feet. It makes sense because as your house is bigger, it is going to cost more.
+    
+In my honest opnion, it seems to me that everything related to area size should be related to <code>SalePrice</code>, like <code>1st Flr SF</code>. However, this is not the case. A lot of houses have 0.0 (bef. data cleaning: Null) indicating they do not have like <code>2nd Flr SF</code>, but have high <code>SalePrice</code>. No obvious patterns to indicate other Area-related columns have strong correlation.
+</ul>
+
+<h3>Facility-Related Relationships</h3>
+<ul>
+<li><code>Fireplaces</code> - (Fireplace) quantity (2)</li><br>
+<li><code>Full Bath</code> - (Bathroom) quantity (2)</li><br>
+<li><code>Half Bath</code> - (Bathroom) quantity (1)</li><br>
+<li><code>Kitchen AbvGr</code> - (Kitchen) quantity (1)</li><br>
+<li><code>Garage Cars</code> - (Garage) quantity (3)</li><br>
+Interestingly, these facilities correlate with prices on specific quantity. Example: Having too many <code>Fireplaces</code> or kitchen might be too bad? This column could be related to <code>Garage Area</code> as well since it relates to how many cars you can keep.
+</ul>
+
+    
+<h3>Time-Related Relationships</h3>
+<ul>
+<li><code>Year Built</code> - (House) original construction date</li>
+    Newer houses tend to cost more, as seen from the graph, from 2000.
+<br><br>
+<li><code>Garage Yr Blt</code> - (Garage) year garage was built</li>
+    <code>SalePrice</code> shoots up from 2000.
+</ul>
+
+However, <code>Mo Sold</code> and <code>Yr Sold</code> don't seem to have any obvious trend.
+
+## Conclusion    
+
+In conclusion, Lasso Regression has the lowest score. There are 66 features that we are using and even though I feel like it is a lot, it could be done better in my opinion. I find out that Feature Engineering is a very important concept to eliminate noise and improve predictions.
+
+My Kaggle score was about 23k (Private) and 33k (Public). It is a huge improvement from (80k) the initial score. However, there are many more prediction techniques out there which I have not employed in my project 2. I was also surprised to see that Lasso Model was doing well rather than Ridge Model. In my labs, I have constantly dealt with Ridge Model as they turn out to be better. 
+
+Despite brute-forcing many sections of the project, there is a clear distinction in which experience comes in. Many of the results are obtained by various numerical parameters obtained from labs and solution-code, even though it was mentioned that parameters are usually chosen by us.
+    
+The top 5 features in our model currently consist of <code>Gr Liv Area</code>, <code>Overall Qual</code>, <code> Neighborhood_NridgHt</code>, <code>Misc Val</code> and <code>Neighborhood_StoneBr</code>. The living area and overall quality make sense, because those were key factors which can directly influence <code>SalePrice</code>. However, in the context of this Kaggle project, I went to research on <code>Neighborhood_NridgHt</code>, <code>Misc Val</code> and <code>Neighborhood_StoneBr</code>. I found out that <code>Misc Val</code> includes facilities such as elevator, additional garage, tennis court or other facilities. This would justify the influence of <code>SalePrice</code> as these are costly upgrades.
+
+Out of curiosity, I googled the neighborhood locations <code>Neighborhood_NridgHt</code> and <code>Neighborhood_StoneBr</code>.
