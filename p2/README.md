@@ -382,6 +382,39 @@ Interestingly, these facilities correlate with prices on specific quantity. Exam
 
 However, <code>Mo Sold</code> and <code>Yr Sold</code> don't seem to have any obvious trend.
 
+## Feature Engineering
+    
+<p>Feature Engineering is the process of selecting, manipulating and transforming raw data into features. With Kaggle's Data Dictionary made publicly opened, there could be some features that could be better. I have tried several combinations and found out that the followings are effective for the model. Many of them are drafted with common sense, but were further supported by the results of my models.</p>
+    
+<ul>
+<li><h3>Total SF = Total Bsmt SF + 1st Flr SF + 2nd Flr SF</h3></li>
+<li><h3>Total Bath = Full Bath + Bsmt Full Bath + (Half Bath + Bsmt Half Bath)/2</h3></li>
+<li><h3>House Age = Year Remod/Add - Year Built</h3></li>    
+</ul>
+
+<p>It is intuitive to think that people would be interested in total square feet of the whole house instead, and also how long has the house been around ever since it was built/renovated.</p>
+    
+<ul>
+<li><h3>Garage Area</h3></li>
+<code>Garage Cars</code> are directly related to <code>Garage Area</code>, and since <code>Garage Area</code> has less correlation, I have decided to drop it.
+<li><h3>Garage Yr Blt</h3></li>
+Similar to <code>Year Built</code>, so it is dropped.
+
+<li><h3>Mo Sold</h3></li>
+Dropping Time columns as our features do not compute Time.
+<li><h3>Yr Sold</h3></li>    
+Dropping Time columns as our features do not compute Time.
+</ul>
+
+<center><h3>Elimination through Lasso</h3></center><br>
+Aside from common sense, in the labs, I have noticed that we could use Lasso to select optimal features as well. We will try to do Lasso with the newly engineered features and see what are the highly beneficial columns.
+    
+## Modelling
+<center><h2>Linear Regression</h2></center><br>
+<center><h2>Lasso Regression</h2></center><br>
+<center><h2>Ridge Regression</h2></center><br>
+<center><h2>Elastic Net</h2></center><br>
+    
 ## Conclusion    
 
 In conclusion, Lasso Regression has the lowest score. There are 66 features that we are using and even though I feel like it is a lot, it could be done better in my opinion. I find out that Feature Engineering is a very important concept to eliminate noise and improve predictions.
